@@ -19,12 +19,12 @@
   --radius: 8px;
   --font-main: 'Segoe UI', sans-serif;
 
-  /* overlay base */
+  
   --overlay-dark: rgba(0, 0, 0, 0.65);
   --overlay-light: rgba(0, 0, 0, 0.25);
 }
 
-/* DARK MODE */
+/* Modo oscuro */
 body.dark-mode {
   --color-bg: #0d0d0d;
   --color-surface: #1a1a2e;
@@ -35,7 +35,7 @@ body.dark-mode {
   --overlay-light: rgba(0, 0, 0, 0.40);
 }
 
-/* GLOBAL BACKGROUND */
+/* Background principal */
 
 body {
   margin: 0;

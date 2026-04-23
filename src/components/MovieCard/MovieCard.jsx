@@ -1,23 +1,25 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import styles from './MovieCard.module.css'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "./MovieCard.module.css";
+import { useWatchlist } from "../../context/WatchlistContext";
 
 function MovieCard({ film }) {
-  const [flipped, setFlipped] = useState(false)
-  const [hovered, setHovered] = useState(false)
+  const [flipped, setFlipped] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const { addToFavorites, removeFromFavorites, isInFavorites } = useWatchlist();
+  const saved = isInFavorites(film.id);
 
   return (
     <div
-      className={`${styles.card} ${flipped ? styles.flipped : ''} ${hovered ? styles.hovered : ''}`}
+      className={`${styles.card} ${flipped ? styles.flipped : ""} ${hovered ? styles.hovered : ""}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
-        setHovered(false)
-        setFlipped(false)
+        setHovered(false);
+        setFlipped(false);
       }}
       onClick={() => setFlipped(true)}
     >
       <div className={styles.inner}>
-
         <div className={styles.front}>
           <img src={film.image} alt={film.title} className={styles.image} />
 
@@ -32,25 +34,37 @@ function MovieCard({ film }) {
         <div className={styles.back}>
           <h3 className={styles.title}>{film.title}</h3>
 
-          <p className={styles.meta}><strong>Director:</strong> {film.director}</p>
-          <p className={styles.meta}><strong>Producer:</strong> {film.producer}</p>
-
-          <p className={styles.desc}>
-            {film.description?.slice(0, 120)}...
+          <p className={styles.meta}>
+            <strong>Director:</strong> {film.director}
+          </p>
+          <p className={styles.meta}>
+            <strong>Producer:</strong> {film.producer}
           </p>
 
-          <Link
-            to={`/film/${film.id}`}
-            className={styles.btn}
-            onClick={(e) => e.stopPropagation()}
-          >
-            Ver más
-          </Link>
-        </div>
+          <p className={styles.desc}>{film.description?.slice(0, 120)}...</p>
 
+<div className={styles.actions}>
+  <Link
+    to={`/film/${film.id}`}
+    className={styles.btn}
+    onClick={(e) => e.stopPropagation()}
+  >
+    Ver más
+  </Link>
+  <button
+    className={saved ? styles.btnRemove : styles.btnAdd}
+    onClick={(e) => {
+      e.stopPropagation()
+      saved ? removeFromFavorites(film.id) : addToFavorites(film)
+    }}
+  >
+    {saved ? '♥ Quitar' : '♡ Favorito'}
+  </button>
+</div>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default MovieCard
+export default MovieCard;
