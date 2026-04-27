@@ -20,7 +20,9 @@
 .card {
   display: flex;
   gap: var(--spacing-xl);
-  background-color: var(--color-surface);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: var(--radius);
   overflow: hidden;
   padding: var(--spacing-xl);
@@ -47,11 +49,11 @@
 
 .info p {
   font-size: 1rem;
-  color: var(--color-text-muted);
+  color:var(--color-bg);
 }
 
 .info p span {
-  color: var(--color-text);
+  color: var(--color-secondary);
   font-weight: 600;
   margin-right: 6px;
 }
